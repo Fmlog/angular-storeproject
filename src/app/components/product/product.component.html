@@ -1,1 +1,10 @@
-<p>product works!</p>
+<div class="product-container">
+    <img class="product-image" src="{{ product.url }}" alt="{{ product.name }}" />
+    <div>{{ product.name }}</div>
+    <div>{{ product.price }}</div>
+
+    <select name="amount" id="amount">
+        <option *ngFor="let amountNo of counter(10)" value={{ amountNo }}>{{ amountNo }}>
+        </option>
+    </select>
+</div>

@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
   constructor(private http: HttpClient) {}
-  getProductsfromAPI(): Observable<Product[]> {
+  
+  getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('assets/data.json');
   }
 }
