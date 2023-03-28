@@ -1,10 +1,13 @@
 <div class="product-container">
-    <img class="product-image" src="{{ product.url }}" alt="{{ product.name }}" />
+    <a [routerLink]="['/products', product.id]">
+        <img class="product-image" src="{{ product.url }}" alt="{{ product.name }}" />
+    </a>
     <div>{{ product.name }}</div>
-    <div>{{ product.price }}</div>
-
-    <select name="amount" id="amount">
-        <option *ngFor="let amountNo of counter(10)" value={{ amountNo }}>{{ amountNo }}>
+    <div>${{ product.price }}</div>
+    <div>{{ amount }}</div>
+    <select [(ngModel)]="amount" class="select-input" name="amount" id="amount">
+        <option *ngFor="let amountNo of amountList" value="{{amountNo }}">{{ amountNo }}
         </option>
     </select>
+    <button (click)="addToCart(product, amount)">Add to cart</button>
 </div>
