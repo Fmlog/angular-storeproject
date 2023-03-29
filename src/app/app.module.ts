@@ -3,22 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { ProductsModule } from './products/products.module';
-import { AppRoutingModule } from './app-routing.module';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     ProductListComponent,
     ProductComponent,
-    HeaderComponent,
+    ProductDetailComponent,
     CartComponent,
     ConfirmationComponent,
   ],
@@ -26,7 +28,6 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ProductsModule,
     AppRoutingModule,
   ],
   providers: [HttpClientModule],

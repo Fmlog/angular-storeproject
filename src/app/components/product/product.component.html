@@ -4,7 +4,6 @@
     </a>
     <div>{{ product.name }}</div>
     <div>${{ product.price }}</div>
-    <div>{{ amount }}</div>
     <select [(ngModel)]="amount" class="select-input" name="amount" id="amount">
         <option *ngFor="let amountNo of amountList" value="{{amountNo }}">{{ amountNo }}
         </option>

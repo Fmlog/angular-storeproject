@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from 'src/app/services/http.service';
 
 import { ProductListComponent } from './product-list.component';
@@ -10,11 +11,10 @@ describe('ProductListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductListComponent ],
-      imports: [HttpClientModule],
+      declarations: [ProductListComponent],
+      imports: [HttpClientModule, RouterTestingModule],
       providers: [HttpService],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;

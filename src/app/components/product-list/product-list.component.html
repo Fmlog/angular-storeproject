@@ -1,5 +1,7 @@
-<h1>{{title}}</h1>
 <div class="product-index">
+    <a [routerLink]="['/products', 1]">Click link</a>
+
     <app-product class="product-container" *ngFor="let product of products" [product]="product">
     </app-product>
+   
 </div>
