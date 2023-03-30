@@ -13,6 +13,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    NgbModule,
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
