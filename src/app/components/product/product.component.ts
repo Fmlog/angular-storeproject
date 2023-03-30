@@ -1,26 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/models';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
 })
-export class ProductComponent implements OnInit{
+export class ProductComponent implements OnInit {
   @Input() product: Product;
-  amount: number;
   amountList: number[];
-  constructor() {
-    this.product = { id: 0, name: '', price: 0, url: '', description: '' };
-    this.amount = 1;
+  constructor(private cart: CartService) {
+    this.product = {
+      id: 0,
+      name: '',
+      price: 0,
+      url: '',
+      description: '',
+      amount: 1,
+    };
     this.amountList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
 
-
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  addToCart(p: Product): void {
+    this.cart.addtoCart(p)
+    alert('Added to cart');
   }
-  addToCart(p: Product, amount: number){
-    console.log(p)
-    console.log(amount)
-    alert('Added to cart')  }
 }

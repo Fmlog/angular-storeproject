@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/models';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -18,6 +18,9 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpService.getProducts().subscribe((res) => {
+      for (let product of res){
+        product['amount']= 1
+      }
       this.products = res;
     });
   }

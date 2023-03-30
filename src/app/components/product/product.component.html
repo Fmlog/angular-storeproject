@@ -4,9 +4,9 @@
     </a>
     <div>{{ product.name }}</div>
     <div>${{ product.price }}</div>
-    <select [(ngModel)]="amount" class="select-input" name="amount" id="amount">
+    <select [(ngModel)]="product.amount" class="select-input" name="amount" id="amount">
         <option *ngFor="let amountNo of amountList" value="{{amountNo }}">{{ amountNo }}
         </option>
     </select>
-    <button (click)="addToCart(product, amount)">Add to cart</button>
+    <button (click)="addToCart(product)">Add to cart</button>
 </div>

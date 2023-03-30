@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/models';
+import { CartService } from 'src/app/services/cart.service';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -10,46 +11,38 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  id!: number;
-  constructor(private route: ActivatedRoute) {
+  product: Product;
+  productId: number;
+  amountList: number[];
+
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpService,
+    private cart: CartService
+  ) {
+    this.product = {
+      id: 0,
+      name: '',
+      price: 0,
+      url: '',
+      description: '',
+      amount: 1,
+    };
+    this.productId = 1;
+    this.amountList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = +params.get('id')!;
+      this.productId = +params.get('id')!;
     });
+    this.http
+      .getProduct(this.productId)
+      .subscribe((product) => (this.product = product!));
+  }
+
+  addToCart(p: Product): void {
+    this.cart.addtoCart(p);
+    alert('Added to cart');
   }
 }
-// export class ProductDetailComponent implements OnInit {
-//   product!: Product;
-//   productId: number;
-//   amount: number;
-//   amountList: number[];
-
-//   constructor(
-//     private route: ActivatedRoute,
-//     private router: Router,
-//     private service: HttpService
-//   ) {
-//     this.productId = 1;
-//     this.amount = 1;
-//     this.amountList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-//   }
-
-//   ngOnInit() {
-//     this.route.paramMap.subscribe((params: ParamMap)=>{
-//       this.productId = +params.get('id')!
-//     })
-//   }
-
-//   addToCart(p: Product, amount: number) {
-//     console.log(p);
-//     console.log(amount);
-//     alert('Added to cart');
-//   }
-
-//ngOnInit() {
-// this.product$ = this.route.paramMap.pipe(
-//   switchMap((params: ParamMap) =>
-//     this.service.getProduct(params.get('id')!))
-// );

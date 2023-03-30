@@ -1,37 +1,78 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../models/Product';
-import { Observable } from 'rxjs';
+import { Product } from '../models/models';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, subscribeOn } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  products: Product[] = [];
+  constructor(private http: HttpClient) {
 
-  constructor(private http: HttpClient) {}
+  }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('assets/data.json');
+    return this.http.get<Product[]>('assets/data.json').pipe(
+      map((data) => data),
+      catchError(this.handleError)
+    );
+  }
+  getProduct(id: number) {
+    this.getProducts().subscribe((res) => {
+      for (let product of res) {
+        product['amount'] = 1;
+      }
+    });
+    return this.getProducts().pipe(
+      map((products) => products.find((product) => product.id === id))
+    );
   }
 
-  // If it were from an API with GET by id
-  // getProduct(id: string): Observable<Product>{
-  //   return this.http.get<Product>(`assets/data.json/${id}`);
-  // }
-
-  //   getProduct(productid: string): Product{
-  //     this.getProducts().subscribe((res) => {
-  //       this.products = res;
-  //     });
-  //      return this.products.find(x => x.id == parseInt(productid))!
-  // }
-
-  getProduct(productid: string): Product {
-    fetch('/assets/data.json')
-      .then((response) => response.json())
-      .then((json) => (this.products = json));
-    console.log(this.products)
-    return this.products.find((x) => x.id == parseInt(productid))!;
+  private handleError(res: HttpErrorResponse | any) {
+    console.error(res.error || res.body.error);
+    return throwError(res.error || 'Server error');
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// getProduct(productid: number): Product {
+//   const products: Product[] = [...data]
+//   console.log(products)
+//   return products.find((x) => x.id == productid)!;
+// }
+// Doesn't work well (i.e doesn't fetch data onInit only works afterwards)
+// getProduct(productid: number): Product {
+//   this.getProducts().subscribe((res) => {
+//     for (let product of res){
+//       product['amount']= 1
+//     }
+//     this.products = res;
+//   });
+//   console.log(this.products);
+//   return this.products.find((x) => x.id == productid)!;
+// }
+// Doesn't work well (i.e doesn't fetch data onInit only works afterwards)
+// getProduct(productid: number): Product {
+//   fetch('/assets/data.json')
+//     .then((response) => response.json())
+//     .then((json) => (this.products = json));
+
+//   return this.products.find((x) => x.id == productid)!;
+// }
