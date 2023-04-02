@@ -6,8 +6,14 @@ import { Cart, Product } from '../models/models';
 })
 export class CartService {
   cart: Cart;
+  username: string;
+  address: string;
+  creditCard!: number;
+  
   constructor() {
     this.cart = { products: [], totalPrice: 0 };
+    this.username = '';
+    this.address = '';
   }
   getCart() {
     return this.cart;
@@ -22,7 +28,6 @@ export class CartService {
     }
     this.getTotalPrice();
   }
-
   getTotalPrice(): number {
     this.cart.totalPrice = 0;
     for (let p of this.cart.products) {
@@ -38,5 +43,13 @@ export class CartService {
     if (p.amount! < 1) this.removeProduct(p);
 
     this.getTotalPrice();
+  }
+  addUserInfo(username: string, address: string, creditCard: number){
+    this.username = username
+    this.address = address
+    this.creditCard = creditCard
+  }
+  getUsername(){
+    return this.username
   }
 }

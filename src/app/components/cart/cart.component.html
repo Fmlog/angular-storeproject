@@ -1,4 +1,3 @@
-<p>cart works!</p>
 <div class="cart-container">
     <div class="cart-panel">
         <div class="cart-item" *ngFor="let p of cart.products">
@@ -9,28 +8,51 @@
                 <div>
                     <label for="amount">Amount: </label>
                     <input class="number-input" type="number" [(ngModel)]="p.amount" id="amount"
-                        (click)="increaseAmount(p)" max="10" checked>
+                        (click)="changeAmount(p)" max="10" checked>
                 </div>
             </div>
         </div>
         <h2>${{cart.totalPrice}}</h2>
     </div>
-    <ng-form class="form">
+    <form class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
         <div>
             <label for="name">Full name </label>
-            <input class="form-control mb-3" type="text" name="name" id="name" placeholder="minimum 3 characters">
+            <input class="form-control mb-3" [(ngModel)]="username" required minlength="3" type="text" name="name"
+                id="name" placeholder="minimum 3 characters" #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <ngb-alert [dismissible]="false" *ngIf="name.errors?.['required']">
+                    Name is required
+                </ngb-alert>
+                <ngb-alert [dismissible]="false" *ngIf="name.errors?.['minlength']">
+                    Name must be atleast 3 characters
+                </ngb-alert>
+            </div>
         </div>
         <div>
             <label for="address">Address</label>
-            <input class="form-control mb-3" type="text" name="address" id="address" placeholder="minimum 6 characters">
+            <input class="form-control mb-3" [(ngModel)]="address" required minlength="6" type="text" name="address"
+                id="address" #addy="ngModel" placeholder="minimum 6 characters">
+            <div *ngIf="addy.invalid && (addy.dirty || addy.touched)">
+                <ngb-alert *ngIf="addy.errors?.['required']" [dismissible]="false">Address is required</ngb-alert>
+                <ngb-alert *ngIf="addy.errors?.['minlength']" [dismissible]="false">
+                    Address must be atleast 6 characters
+                </ngb-alert>
+
+            </div>
         </div>
         <div>
             <label for="card">Credit card number</label>
-            <input class="form-control " type="text" name="card" id="card" placeholder="minimum 6 characters">
+            <input class="form-control " [(ngModel)]="creditCard" minlength="16" maxlength="16" 
+            pattern="[0-9]{16}" required name="card" id="card"
+                placeholder="(16 digit number)" #cCard="ngModel">
             <p class="form-text mb-3">We'll never share your details with anyone else</p>
+                <div *ngIf="cCard.invalid && (cCard.dirty || cCard.touched)">
+                    <ngb-alert *ngIf="cCard.errors?.['required']" [dismissible]="false">Credit card is required</ngb-alert>
+                    <ngb-alert *ngIf="cCard.errors?.['minlength']" [dismissible]="false">Card number length not valid</ngb-alert>
+                    <ngb-alert *ngIf="cCard.errors?.['pattern']" [dismissible]="false">Invalid credit card number</ngb-alert>
+                </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </ng-form>
+        <button [disabled]="f.invalid" type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
 </div>

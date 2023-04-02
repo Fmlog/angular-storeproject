@@ -1,17 +1,17 @@
-<div class="detail-container">
+<div *ngIf="product" class="detail-container">
     <img class="product-image" src="{{ product.url }}" alt="{{ product.name }}" />
     <div class="detail-item">
-        <h2>{{ product.name }}</h2>
-        <div>${{ product.price }}</div>
-        <div>{{ product.description }}</div>
-        <select  [(ngModel)]="product.amount" class="select-input" name="amount" id="amount">
+        <h3>{{ product.name }}</h3>
+        <p>${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <select [(ngModel)]="product.amount" class="select-input" name="amount" id="amount">
             <option *ngFor="let amountNo of amountList" value="{{amountNo }}">{{ amountNo }}
             </option>
         </select>
         <div>
             <button class="btn btn-primary" (click)="addToCart(product)">Add to cart</button>
-        <div class="back-link">
-            <a routerLink="/">Back to product list</a>
+            <div class="back-link">
+                <a routerLink="/">Back to product list</a>
+            </div>
         </div>
     </div>
-</div>

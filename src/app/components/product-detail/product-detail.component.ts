@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product;
+  product: Product | undefined;
   productId: number;
   amountList: number[];
 
@@ -20,14 +20,6 @@ export class ProductDetailComponent implements OnInit {
     private http: HttpService,
     private cart: CartService
   ) {
-    this.product = {
-      id: 0,
-      name: '',
-      price: 0,
-      url: '',
-      description: '',
-      amount: 1,
-    };
     this.productId = 1;
     this.amountList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
@@ -39,6 +31,7 @@ export class ProductDetailComponent implements OnInit {
     this.http
       .getProduct(this.productId)
       .subscribe((product) => (this.product = product!));
+      console.log(this.product)
   }
 
   addToCart(p: Product): void {
