@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/models';
+import { CartService } from 'src/app/services/cart.service';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -10,8 +11,9 @@ import { HttpService } from 'src/app/services/http.service';
 export class ProductListComponent implements OnInit {
   title: string;
   products: Product[];
+  
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private cart: CartService) {
     this.title = 'Products List';
     this.products = [];
   }
@@ -23,5 +25,10 @@ export class ProductListComponent implements OnInit {
       }
       this.products = res;
     });
+  }
+
+  addToCart(event: Product): void {
+    this.cart.addtoCart(event)
+    alert('Added to cart');
   }
 }

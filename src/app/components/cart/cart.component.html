@@ -8,7 +8,7 @@
                 <div>
                     <label for="amount">Amount: </label>
                     <input class="number-input" type="number" [(ngModel)]="p.amount" id="amount"
-                        (click)="changeAmount(p)" max="10" checked>
+                        (ngModelChange)="changeAmount(p)" max="10" checked>
                 </div>
             </div>
         </div>
